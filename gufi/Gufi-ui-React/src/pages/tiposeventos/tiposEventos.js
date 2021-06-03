@@ -1,12 +1,12 @@
 import { Component } from 'react';
 
-class TiposEventos extends React.Component{
+class TiposEventos extends Component{
     constructor(props){
         super(props);
         this.state = {
             // estrutura
             //nome do estado : valor inicial ( um array vazio)
-            listaTiposEventos : [  ],
+            listaTiposEventos : [ { TiposEventoId : 1, titulo : 'C#' }, { TiposEventoId : 2, titulo : 'React' } ],
             titulo : ''
         }
     }
@@ -28,7 +28,24 @@ class TiposEventos extends React.Component{
                                     <th>#</th>
                                     <th>titulo</th>
                                 </tr>
+                                
                             </thead>
+
+
+                            <tbody>
+                                {/* Fazer uma varredura do array, chamando o state */}
+                                {
+                                    //              array      função/elemento q representa cada um dos elementos
+                                    this.state.listaTiposEventos.map( (tipoEvento) => {
+                                        return (
+                                            <tr key={tipoEvento.TiposEventoId}>
+                                                <td> {tipoEvento.TiposEventoId} </td>
+                                                <td> {tipoEvento.titulo } </td>
+                                            </tr>
+                                        )
+                                    } )
+                                }
+                            </tbody>
                         </table>
                     </section>
                 </main>
@@ -36,3 +53,5 @@ class TiposEventos extends React.Component{
         );
     }
 }
+
+export default TiposEventos;
