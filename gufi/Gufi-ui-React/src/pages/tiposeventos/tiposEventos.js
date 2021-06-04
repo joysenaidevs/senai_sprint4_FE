@@ -6,13 +6,21 @@ class TiposEventos extends Component{
         this.state = {
             // estrutura
             //nome do estado : valor inicial ( um array vazio)
-            listaTiposEventos : [ { TiposEventoId : 1, titulo : 'C#' }, { TiposEventoId : 2, titulo : 'React' } ],
+            listaTiposEventos : [],
             titulo : ''
         }
+    } 
+
+    buscarTiposEventos = () => {
+        console.log('agora vamos fazer a chamada para a API')
     }
 
+    // o usuario ao entrar na pagina vai aparecer a lista de eventos
+    // chamada para a funcao buscarTiposEventos assim q o componente é renderizado
     componentDidMount(){
         //código
+        //chamada para função
+        this.buscarTiposEventos();
     }
 
     render(){
