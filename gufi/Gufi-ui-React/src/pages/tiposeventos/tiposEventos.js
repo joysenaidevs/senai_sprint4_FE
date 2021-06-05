@@ -47,10 +47,40 @@ class TiposEventos extends Component{
     // o usuario ao entrar na pagina vai aparecer a lista de eventos
     // chamada para a funcao buscarTiposEventos assim q o componente é renderizado
     
-    atualizaEstadoTitulo  = (event) => {
-        this.setState({ titulo : event.target.value })
+    // Atualiza o state titulo com o valor do input
+    atualizaEstadoTitulo  = async (event) => {
+                            //NomeState   // VALOR DO INPUT
+       await this.setState({ titulo : event.target.value })
         console.log(this.state.titulo)
     };
+
+
+    // função responsavel por cadastrar um Tipo de evento
+    cadastrarTipoEvento = (event) => {
+        // ignora o comportamento padrao do navegador
+        event.preventDefault();
+
+        // FAZ A CHAMADA PARA A API USANDO FETCH
+        fetch('http://localhost:5000/api/tiposeventos', {
+            // DEFINE O VERBO DA REQUISIÇÃO (POST)
+            method : 'POST', 
+
+            // Define o corpo da requisição especificando o tipo (JSON)
+            //  converte state para uma string JSON
+            body : JSON.stringify ({tituloTipoEvento : this.state.titulo}),
+
+            // define o cabeçalho da requisição
+            headers : {
+                "Content-Type" : "application/json"
+            }
+        })
+
+        //                  exibe no console a mensagem
+        .then(console.log("Tipo de evento cadastrado!"))
+
+        // caso ocorra erro, exibe este erro no console
+        .catch(error => console.log(error))
+    }
 
 
     componentDidMount(){
@@ -77,10 +107,10 @@ class TiposEventos extends Component{
 
 
                             <tbody>
-                                {/* Fazer uma varredura do array, chamando o state */}
                                 {
+                                    // Fazer uma varredura do array, chamando o state 
                                     //              array      função/elemento q representa cada um dos elementos
-                                    this.state.listaTiposEventos.map((tipoEvento) => {
+                                    this.state.listaTiposEventos.map( (tipoEvento) => {
                                         return (
                                             <tr key={tipoEvento.idTipoEvento}>
                                                 <td> {tipoEvento.idTipoEvento} </td>
@@ -88,6 +118,7 @@ class TiposEventos extends Component{
                                             </tr>
                                         )
                                     } )
+                                   
                                 }
                             </tbody>
                         </table>
