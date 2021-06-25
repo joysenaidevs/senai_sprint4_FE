@@ -39,13 +39,13 @@ export default function Administrador() {
             }
         })
 
-            .then(resposta => {
-                if (resposta.status === 200) {
+        .then(resposta => {
+            if (resposta.status === 200) {
 
-                    setListaConsultas(resposta.data)
-                }
-            })
-            .catch(erro => console.log(erro))
+                setListaConsultas(resposta.data)
+            }
+        })
+        .catch(erro => console.log(erro))
     }
 
     // buscar médico
@@ -326,5 +326,4 @@ return (
         </div>
     </div>
 
-)
-}
+)}

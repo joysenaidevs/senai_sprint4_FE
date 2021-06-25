@@ -3,6 +3,9 @@ import axios from 'axios';
 import { parseJwt, usuarioAutenticado } from '../../services/auth';
 
 
+import "../../assets/css/login.css";
+import { Link } from 'react-router-dom';
+
 
 
 class Login extends Component {
@@ -89,12 +92,13 @@ class Login extends Component {
 
 
             <div id="container-login">
-
+             
                 <section className="card-login">
+
 
                     <h1 id="h1-login">SP Medical Group</h1>
 
-                    <h2 id="h2-login">Faça seu login.</h2>
+                    <h2 id="h2-login">Login</h2>
 
                     <form onSubmit={this.login}>
 
@@ -139,9 +143,6 @@ class Login extends Component {
 
 
                 </section>
-
-                
-
 
             </div>
 

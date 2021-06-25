@@ -4,8 +4,7 @@ import { Route, BrowserRouter as Router, Switch, Redirect  } from 'react-router-
 
 import './index.css';
 
-
-import App from './pages/home/App';
+import Medico from './pages/medico/medico';
 import Login from './pages/login/login';
 import NotFound from './pages/notFound/notFound';
 
@@ -16,7 +15,9 @@ const routing = (
   <Router>
     <div>
       <Switch>
-        <Route exact path="/" component={Login} /> {/* tela - Login */} 
+        <Route exact path="/" component={Medico} /> {/* tela - Login */} 
+        <Route path="/login" component={Login} /> {/* Login */}
+        {/* <Router path="/medico" component={Medico} /> {/* tela - medico/} */}
         <Route exact path="/notFound" component={NotFound}/> {/* notFound*/}
         <Redirect to = "/notFound"/>
       </Switch>

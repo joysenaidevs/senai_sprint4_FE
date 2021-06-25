@@ -6,110 +6,38 @@
 }
  
 body{  
-    background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%);        
-}
-
-/*conteúdo da seção login e infos*/
-#container-login{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 100px;    
+    background-image: linear-gradient(to right, #0acffe 0%, #c7c8d6 100%);        
 }
 
 
-.card-login{
-    
-    padding: 80px;
-    border-radius: 10px;
-    border: 1px solid #FFF;      
+/* conteudo da seção Medico */
+.container{
+    width: 70%;
+    margin: 0 auto;
 }
-
-#logo{
-    width: 100px;
+.img .logo{
+    width: 10px;
     height: 100px;
-    margin-left: 100px;
-    margin-bottom: 35px;         
 }
 
-#h1-login{
-    color:#FFF;
-    text-align: center;
-    font-size:xx-large;       
+.menu img{
+    width: 50px;
+    height: 50px;
 }
 
-#h2-login{    
-    margin-bottom: 20px;
-    margin-top: 40px;
-    color:#FFF;
-    font-weight: normal;
-    font-size: 18px;
-    text-align: center;
+
+
+.menu-principal{
+    padding: 10px;
+    margin-bottom: 10px;
+    color: #9799a6;
+    background-color: #fff;
+    text-decoration: none;
+    transition: 0.5s;
+    display: block;
+    border-bottom: 1px solid #9799a6;
 }
 
-.input-login input{
-    width: 100%;
-    padding: 5px 5px;
-    display:inline-block;
-    border: 0;
-    border-bottom: 2px solid #FFF;
-    background-color: transparent ;
-    outline: none;
-    min-width: 220px;
-    font-size: 16px;
-    transition: all .3s ease-out;
-    border-radius: 0;
-    color:#FFF;
-}
 
-.input-login{
-    position: relative;
-    padding-top: 13px;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    display: flex;
-    color:#FFF;
-}
 
-.input-login i{
-    color:#FFF ;
-}
 
-.input-login input:focus{
-    border-bottom: 2px solid #FFF; 
-    font-size: 13px;
-    margin-top: 0;
-    color: #FFF;    
-}
-
-#btn-login{
-    width: 100%;
-    background-color: #FFF;
-    color: #1737E7;
-    padding: 7px;
-    font-weight: bold;
-    font-size: 20px;
-    margin-top: 30px;
-    border: 1px solid #FFF;
-    border-radius: 5px;
-    cursor: pointer;
-    outline: none;
-    transition: all .5s ease-out;
-}
-
-#btn-login:hover{
-    background-color: #8ebef550;
-    color: #FFF;
-}
-
-.justify-center{
-    display: flex;
-    justify-content: center;
-}
-
-#p-login{
-    color: #FFF;
-    font-size: 16px;    
-    text-align: center;
-    margin-top: 40px ;    
-}
