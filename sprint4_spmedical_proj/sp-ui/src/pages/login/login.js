@@ -92,8 +92,6 @@ class Login extends Component {
 
                 <section className="card-login">
 
-                    <img id="logo" src={logo} alt="logo SPMG" />
-
                     <h1 id="h1-login">SP Medical Group</h1>
 
                     <h2 id="h2-login">Faça seu login.</h2>
@@ -101,7 +99,7 @@ class Login extends Component {
                     <form onSubmit={this.login}>
 
                         <div className="input-login">
-                            <i className="material-icons">perm_identity</i>
+                            <i className="material-icons">Email</i>
                             <input
                                 required
                                 type="email"
@@ -112,7 +110,7 @@ class Login extends Component {
                         </div>
 
                         <div className="input-login">
-                            <i className="material-icons">lock</i>
+                            <i className="material-icons">senha</i>
                             <input
                                 required
                                 type="password"
