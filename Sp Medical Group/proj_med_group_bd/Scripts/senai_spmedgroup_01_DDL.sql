@@ -35,12 +35,12 @@ CREATE TABLE clinicas
 );
 GO
 
-CREATE TABLE pronturarios
+CREATE TABLE prontuarios
 (
-	idPronturario				INT PRIMARY KEY IDENTITY
+	idProntuario				INT PRIMARY KEY IDENTITY
 	,idUsuario					INT FOREIGN KEY REFERENCES tipoUsuarios (idTipoUsuario) -- (idTipoUsuario) VOU INFORMAR A COLUNA A QUE FAÇO REFERENCIA
-	,nomePronturario			VARCHAR (200) NOT NULL
-	,dataNascimentoo			DATE
+	,nomeProntuario				VARCHAR (200) NOT NULL
+	,dataNascimento				DATE
 	,telefone					INT NOT NULL
 	,rg							CHAR (20) UNIQUE NOT NULL
 	,cpf						CHAR (20) UNIQUE NOT NULL
@@ -53,7 +53,6 @@ CREATE TABLE especialidades
 	idEspecialidade				INT PRIMARY KEY IDENTITY
 	,nomeEspecialidade			VARCHAR (200) UNIQUE NOT NULL 
 );
-
 GO
 
 CREATE TABLE medicos
@@ -70,7 +69,7 @@ GO
 CREATE TABLE consultas
 (
 	 idConsulta				INT PRIMARY KEY IDENTITY
-	,idPronturario			INT FOREIGN KEY REFERENCES pronturarios (idPronturario) -- (idProntuario) VOU INFORMAR A COLUNA A QUE FAÇO REFERENCIA
+	,idProntuario			INT FOREIGN KEY REFERENCES prontuarios (idProntuario) -- (idProntuario) VOU INFORMAR A COLUNA A QUE FAÇO REFERENCIA
 	,idMedico				INT FOREIGN KEY REFERENCES medicos (idMedico) -- (idMedico) VOU INFORMAR A COLUNA A QUE FAÇO REFERENCIA
 	,dataConsulta			DATE UNIQUE NOT NULL
 	,situacao				VARCHAR (100) NOT NULL

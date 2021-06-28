@@ -17,16 +17,16 @@ INNER JOIN especialidades --fazendo referencia a tabela especidade
 ON medicos.idEspecialidade = especialidades.idEspecialidade
 
 -- JUNTANDO A TABELA PRONTUARIO COM USUARIO
-SELECT  nomePronturario AS prontuario, dataNascimentoo, telefone, rg, cpf , nomeUsuario AS usuario FROM pronturarios
+SELECT  nomeProntuario AS prontuario, dataNascimento, telefone, rg, cpf , nomeUsuario AS usuario FROM prontuarios
 INNER JOIN usuarios
-ON pronturarios.idUsuario = usuarios.idUsuario
+ON prontuarios.idUsuario = usuarios.idUsuario
 
 -- CONSULTAS COM MEDICO E PRONTUARIOS
-SELECT nomeMedico, dataConsulta, situacao, nomePronturario FROM consultas
+SELECT nomeMedico, dataConsulta, situacao, nomeProntuario FROM consultas
 INNER JOIN medicos
 ON consultas.idMedico =  medicos.idMedico
-INNER JOIN pronturarios
-ON consultas.idPronturario = pronturarios.idPronturario
+INNER JOIN prontuarios
+ON consultas.idProntuario = prontuarios.idProntuario
 
 
 SELECT nomeUsuario, email FROM usuarios U
@@ -34,3 +34,14 @@ INNER JOIN tipoUsuarios TU
 ON u.idTipoUsuario = TU.idTipoUsuario
 WHERE email = 'joao@email.com' AND senha = 'joao123';
 --WHERE idUsuario = 3
+
+
+SELECT * FROM  clinicas;
+
+SELECT * FROM prontuarios;
+
+SELECT *FROM especialidades;
+
+SELECT * FROM medicos;
+
+SELECT * FROM consultas;
