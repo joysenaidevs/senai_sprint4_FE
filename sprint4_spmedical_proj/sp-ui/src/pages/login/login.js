@@ -19,73 +19,73 @@ class Login extends Component {
         }
     };
 
-    // login = (event) => {
+    login = (event) => {
 
-    //     event.preventDefault();
+        event.preventDefault();
 
-    //     this.setState({ erroMensagem: '', isLoading: true });
+        this.setState({ erroMensagem: '', isLoading: true });
 
-    //     axios.post('http://localhost:5000/api/login', {
-    //         email: this.state.email,
-    //         senha: this.state.senha
-    //     })
+        axios.post('http://localhost:5000/api/login', {
+            email: this.state.email,
+            senha: this.state.senha
+        })
 
-    //         .then(resposta => {
+            .then(resposta => {
 
-    //             if (resposta.status === 200) {
+                if (resposta.status === 200) {
 
-    //                 localStorage.setItem('usuario-login', resposta.data.token);
+                    localStorage.setItem('usuario-login', resposta.data.token);
 
-    //                 console.log('Meu token é: ' + resposta.data.token);
+                    console.log('Meu token é: ' + resposta.data.token);
 
-    //                 this.setState({ isLoading: false })
+                    this.setState({ isLoading: false })
 
-    //                 let base64 = localStorage.getItem('usuario-login').split('.')[1];
+                    let base64 = localStorage.getItem('usuario-login').split('.')[1];
 
-    //                 console.log(base64);
+                    console.log(base64);
 
-    //                 console.log(window.atob(base64));
+                    console.log(window.atob(base64));
 
-    //                 console.log(JSON.parse(window.atob(base64)));
+                    console.log(JSON.parse(window.atob(base64)));
 
-    //                 console.log(parseJwt().role);
+                    console.log(parseJwt().role);
 
-    //                 switch (parseJwt().role) {
+                    switch (parseJwt().role) {
 
-    //                     case '1':
-    //                         this.props.history.push('/administrador')
+                        case '1':
+                            this.props.history.push('/administrador')
 
-    //                         break;
+                            break;
 
-    //                     case '2':
-    //                         this.props.history.push('/paciente')
+                        case '2':
+                            this.props.history.push('/paciente')
 
-    //                         break;
+                            break;
 
-    //                     case '3':
-    //                         this.props.history.push('/medico')
+                        case '3':
+                            this.props.history.push('/medico')
 
-    //                         break;
+                            break;
 
-    //                     default:
-    //                         this.props.history.push('/')
-    //                         break;
+                        default:
+                            this.props.history.push('/')
+                            break;
 
-    //                 }
+                    }
 
-    //                 console.log('estou logado: ' + usuarioAutenticado());
-    //             }
-    //         })
+                    console.log('estou logado: ' + usuarioAutenticado());
+                }
+            })
 
-    //         .catch(() => {
+            .catch(() => {
 
-    //             this.setState({ erroMensagem: 'E-mail ou senha inválidos! Tente novamente.', isLoading: false });
-    //         })
-    // }
+                this.setState({ erroMensagem: 'E-mail ou senha inválidos! Tente novamente.', isLoading: false });
+            })
+    }
 
-    // atualizaStateCampo = (campo) => {
-    //     this.setState({ [campo.target.name]: campo.target.value })
-    // };
+    atualizaStateCampo = (campo) => {
+        this.setState({ [campo.target.name]: campo.target.value })
+    };
 
     render() {
         return (

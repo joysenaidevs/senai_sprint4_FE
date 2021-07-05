@@ -33,7 +33,7 @@ export default function Administrador() {
 
     // buscar todas consultas cadastradas
     function getConsultas() {
-        axios.get('http://localhost:5000/api/consulta', {
+        axios.get('http://localhost:5000/api/consultas', {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('usuario-login')
             }
@@ -50,7 +50,7 @@ export default function Administrador() {
 
     // buscar médico
     function getMedicos() {
-        axios.get('http://localhost:5000/api/medico', {
+        axios.get('http://localhost:5000/api/medicos', {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('usuario-login')
             }
@@ -67,7 +67,7 @@ export default function Administrador() {
 
     // buscar paciente
     function getPacientes() {
-        axios.get('http://localhost:5000/api/paciente', {
+        axios.get('http://localhost:5000/api/pacientes', {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('usuario-login')
             }
@@ -83,46 +83,46 @@ export default function Administrador() {
     }
 
 
-// cadastrar consultas
-// function postConsultas(event) {
+    cadastrar.consulta
+    function postConsultas(event) {
 
-//     event.preventDefault()
+    event.preventDefault()
 
-//     setIsLoading(true)
+    setIsLoading(true)
 
-//     axios.post('http://localhost:5000/api/consulta', {
+    axios.post('http://localhost:5000/api/consultas', {
 
-//         idPaciente: idPaciente,
-//         idMedico: idMedico,
-//         dataConsulta: new Date(dataConsulta),
-//         horarioConsulta: horarioConsulta,
-//         idStatusConsulta: idStatusConsulta,
-//         descricaoAtendimento: ' - - - - N/A - - - - '
+        idPaciente: idPaciente,
+        idMedico: idMedico,
+        dataConsulta: new Date(dataConsulta),
+        horarioConsulta: horarioConsulta,
+        idStatusConsulta: idStatusConsulta,
+        descricaoAtendimento: ' - - - - N/A - - - - '
 
-//     }, {
-//         headers: {
-//             'Authorization': 'Bearer ' + localStorage.getItem('usuario-login')
-//         }
-//     })
+    }, {
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('usuario-login')
+        }
+    })
 
-//         .then(resposta => {
+        .then(resposta => {
 
-//             if (resposta.status === 201) {
+            if (resposta.status === 201) {
 
-//                 console.log('Consulta cadastrada!')
+                console.log('Consulta cadastrada!')
 
-//                 setIsLoading(false)
+                setIsLoading(false)
 
-//                 getConsultas();
-//             }
-//         })
+                getConsultas();
+            }
+        })
 
-//         .catch(erro => {
-//             console.log(erro)
-//             setIsLoading(false)
-//         })
+        .catch(erro => {
+            console.log(erro)
+            setIsLoading(false)
+        })
 
-// };
+};
 
 
     // funções para ciclos de vida 
