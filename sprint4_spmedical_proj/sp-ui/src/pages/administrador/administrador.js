@@ -8,15 +8,13 @@ export default function Administrador() {
 
 
     // states para o cadastro das consultas
-    const [idPaciente, setIdPaciente] = useState(0)
+    const [idProntuario, setIdProntuario] = useState(0)
 
     const [idMedico, setIdMedico] = useState(0)
 
-    const [idStatusConsulta, setIdStatusConsulta] = useState(0)
-
     const [dataConsulta, setDataConsulta] = useState(new Date())
 
-    const [horarioConsulta, setHorarioConsulta] = useState('')
+    const [situacao, setSituacao] = useState(0)
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -26,7 +24,7 @@ export default function Administrador() {
 
     const [listaMedicos, setListaMedicos] = useState([])
 
-    const [listaPacientes, setListaPacientes] = useState([])
+    const [listaProntuarios, setListaProntuarios] = useState([])
 
 
     //funções
@@ -66,8 +64,8 @@ export default function Administrador() {
     }
 
     // buscar paciente
-    function getPacientes() {
-        axios.get('http://localhost:5000/api/pacientes', {
+    function getProntuarios() {
+        axios.get('http://localhost:5000/api/prontuarios', {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('usuario-login')
             }
@@ -76,29 +74,25 @@ export default function Administrador() {
             .then(resposta => {
                 if (resposta.status === 200) {
 
-                    setListaPacientes(resposta.data)
+                    setListaProntuarios(resposta.data)
                 }
             })
             .catch(erro => console.log(erro))
     }
 
 
-    cadastrar.consulta
+    //cadastrar.consulta
     function postConsultas(event) {
 
-    event.preventDefault()
+        event.preventDefault()
 
-    setIsLoading(true)
+        setIsLoading(true)
 
-    axios.post('http://localhost:5000/api/consultas', {
-
-        idPaciente: idPaciente,
-        idMedico: idMedico,
-        dataConsulta: new Date(dataConsulta),
-        horarioConsulta: horarioConsulta,
-        idStatusConsulta: idStatusConsulta,
-        descricaoAtendimento: ' - - - - N/A - - - - '
-
+        axios.post('http://localhost:5000/api/consultas', {
+            idProntuario: idProntuario,
+            idMedico: idMedico,
+            dataConsulta: new Date(dataConsulta),
+            situacao : situacao
     }, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('usuario-login')
@@ -122,7 +116,7 @@ export default function Administrador() {
             setIsLoading(false)
         })
 
-};
+    };
 
 
     // funções para ciclos de vida 
@@ -130,15 +124,15 @@ export default function Administrador() {
 
     useEffect(getMedicos, [])
 
-    useEffect(getPacientes, [])
+    useEffect(getProntuarios, [])
 
-return (
+    return (
 
     <div className="pg-adm">
 
         <header>
-            <h1 className="titulo">Adiministrador - Gerenciamento de Consultas <br />
-                <Link to='/' className="material-icons">logout</Link>
+            <h1 className="titulo"> Gerenciamento de Consultas <br />
+                <Link to='/login' className="material-icons">logout</Link>
             </h1>
         </header>
 
@@ -157,17 +151,17 @@ return (
 
                         <select
 
-                            name="idPaciente"
-                            value={idPaciente}
-                            onChange={(event) => setIdPaciente(event.target.value)}
+                            name="idProntuario"
+                            value={idProntuario}
+                            onChange={(event) => setIdProntuario(event.target.value)}
                         >
                             <option value="0">Paciente</option>
 
                             {
-                                listaPacientes.map(paciente => {
+                                listaProntuarios.map(prontuario => {
                                     return (
-                                        <option key={paciente.idPaciente} value={paciente.idPaciente}>
-                                            {paciente.nomePaciente}
+                                        <option key={prontuario.idProntuario} value={prontuario.idProntuario}>
+                                            {prontuario.nomeProntuario}
                                         </option>
                                     )
                                 })
@@ -195,7 +189,7 @@ return (
                                         <option
                                             key={medico.idMedico}
                                             value={medico.idMedico}>
-                                            {medico.nomeMedico} - {medico.idEspecialidadeNavigation.descricaoEspecialidade}
+                                            {medico.nomeMedico} - {medico.idEspecialidadeNavigation.nomeEspecialidade}
                                         </option>
                                     )
                                 })
@@ -223,28 +217,12 @@ return (
 
                     <div className="campos">
 
-                        <p>Horário</p>
-
-                        <input
-
-                            type="time"
-                            name="horarioConsulta"
-                            value={horarioConsulta}
-                            onChange={(event) => setHorarioConsulta(event.target.value)}
-                            placeholder="Horário"
-
-                        />
-
-                    </div>
-
-                    <div className="campos">
-
                         <p>Status</p>
 
                         <select
-                            name="idStatusConsulta"
-                            value={idStatusConsulta}
-                            onChange={(event) => setIdStatusConsulta(event.target.value)}
+                            name="situacao"
+                            value={situacao}
+                            onChange={(event) => setSituacao(event.target.value)}
 
                         >
                             <option value="1">Agendado</option>
@@ -295,9 +273,7 @@ return (
                             <th>Médico</th>
                             <th>Especialidade</th>
                             <th>Data</th>
-                            <th>Horário</th>
                             <th>Status</th>
-                            <th>Atendimento</th>
                         </tr>
 
                     </thead>
@@ -307,13 +283,12 @@ return (
                             listaConsultas.map((consulta) => {
                                 return (
                                     <tr key={consulta.idConsulta}>
-                                        <td>{consulta.idPacienteNavigation.nomePaciente}</td>
+                                        <td>{/*consulta.idProntuario.nomeProntuario*/}</td>
                                         <td>{consulta.idMedicoNavigation.nomeMedico}</td>
-                                        <td>{consulta.idMedicoNavigation.idEspecialidadeNavigation.descricaoEspecialidade}</td>
+                                        <td>{consulta.idMedicoNavigation.idEspecialidadeNavigation.nomeEspecialidade}</td>
                                         <td>{new Date(consulta.dataConsulta).toLocaleDateString()}</td>
-                                        <td>{consulta.horarioConsulta}</td>
-                                        <td>{consulta.idStatusConsultaNavigation.descricaoStatusConsulta}</td>
-                                        <td>{consulta.descricaoAtendimento}</td>
+                                        <td>{consulta.idConsultaNavigation.idSituacaoNavigation.situacao}</td>
+                                        
                                     </tr>
                                 )
                             })

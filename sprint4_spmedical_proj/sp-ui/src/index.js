@@ -5,8 +5,10 @@ import { Route, BrowserRouter as Router, Switch, Redirect  } from 'react-router-
 import './index.css';
 
 import Medico from './pages/medico/medico';
+import Administrador from './pages/administrador/administrador'
 import Login from './pages/login/login';
 import NotFound from './pages/notFound/notFound';
+import Prontuarios from './pages/paciente/paciente';
 
 
 import reportWebVitals from './reportWebVitals';
@@ -15,6 +17,8 @@ const routing = (
   <Router>
     <div>
       <Switch>
+        <Route path="/prontuario" component={Prontuarios} />
+        <Route path="/Administrador" component={Administrador} />
         <Route exact path="/" component={Medico} /> {/* tela - Login */} 
         <Route path="/login" component={Login} /> {/* Login */}
         {/* <Router path="/medico" component={Medico} /> {/* tela - medico/} */}

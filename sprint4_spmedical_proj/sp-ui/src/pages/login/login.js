@@ -4,7 +4,7 @@ import { parseJwt, usuarioAutenticado } from '../../services/auth';
 
 
 import "../../assets/css/login.css";
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 
 
@@ -58,7 +58,7 @@ class Login extends Component {
                             break;
 
                         case '2':
-                            this.props.history.push('/paciente')
+                            this.props.history.push('/prontuario')
 
                             break;
 
