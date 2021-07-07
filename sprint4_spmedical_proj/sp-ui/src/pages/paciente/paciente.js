@@ -1,6 +1,4 @@
-
-
-
+//import { Link } from 'react-router-dom';
 import { Component } from 'react';
 
 class Prontuarios extends Component{
@@ -34,43 +32,123 @@ class Prontuarios extends Component{
         // ignora o comportamento padrão do navegador
         event.preventDefault();
 
-        //Faz a chamada para a API usando fetch
-        fetch('http://localhost:5000/api/Prontuarios',{  
+        if(this.state.idProntuarioAlterado !== 0) {
 
-            //definindo verbo da requisição (POST)
-            method : 'POST',
+            //Faz a chamada para a API usando fetch
+            fetch('http://localhost:5000/api/Prontuarios/',{  
+    
+                //definindo verbo da requisição (PUT)
+                method : 'PUT',
+    
+                // define que o corpo da requisição especificando o tipo (JSON)
+                //CONVERTE O STATE PARA UMA STRING JSON
+                body : JSON.stringify( {nomeProntuario : this.state.prontuario} ),
+    
+                //define o cabeçario da requisição
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            })
+            .then(resposta => {
+                //caso a requisicao retorne um status code,
+                if (resposta.status === 204) {
+                    console.log(
+                        //exibe no console do navegador a mensagem 'Prontuario x atualizado! , onde x é o id 
+                        'Prontuario' + this.state.idProntuarioAlterado + 'Atualizado',
+    
+                        // informa qual seu novo prontuario
+                        'seu nome agora é : ' + this.state.nomeProntuario
+                    )
+                };
+            })
+    
+            // entao atualiza o nome do prontuario
+            .then(this.buscarProntuarios)
+    
+            //faz a chamada de limparcampos
+            .then(this.limparCampos)
+    
+            // Exibe no console do navegador a mensagem : ()
+            // .then(console.log("Prontuario cadastrado!"))
+    
+            // //caso ocorra algum erro, exibe no console do navegador
+            // .catch( erro => console.log(erro) )
+    
+            // // atualiza a lista de prontuarios sem o usuarios precisar executar nada
+            // .then(this.buscarProntuarios)
+    
+            // // Faz a chamada para a função limparCampos
+            // .then(this.limparCampos)
+        }
+        //caso nenhum nome tenha sido selecionado para editar realiza o cadastro com a requisicao abaixo
+    
+        else{
+            //faz a chamada para a api
+            // Faz a chamada para a API usando fetch
+            fetch('http://localhost:5000/api/Prontuarios',
+            {
+                // Define o método da requisição ( POST )
+                method : 'POST',
+        
+                // Define o corpo da requisição especificando o tipo ( JSON )
+                // Em outras palavras, converte o state para uma string JSON
+                body : JSON.stringify({ prontuario : this.state.nomeProntuario }),
+        
+                // Define o cabeçalho da requisição
+                headers : {
+                    "Content-Type" : "application/json",
+                    'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
+                }
+            })
 
-            // define que o corpo da requisição especificando o tipo (JSON)
-            //CONVERTE O STATE PARA UMA STRING JSON
-            body : JSON.stringify( {nomeProntuario : this.state.prontuario} ),
+            //exibe no console do navegador : 
+            .then(console.log('Prontuario cadastrado'))
 
-            //define o cabeçario da requisição
+            //caso ocorra algum erro
+            .catch(erro => console.log(erro))
+
+            //atualiza a lista de prontuarios
+            .then(this.buscarProntuarios)
+
+            .then(this.limparCampos)
+        }
+    }
+
+
+    buscarProntuarios = () => {
+
+        console.log('agora vamos fazer a chamada para API para atualizar a lista');
+
+        // Faz a chamada para a API usando o fetch
+        fetch('http://localhost:5000/api/Prontuarios', {
             headers : {
-                "Content-Type" : "application/json"
+                'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
             }
         })
 
-        // Exibe no console do navegador a mensagem : ()
-        .then(console.log("Prontuario cadastrado!"))
+        // tratamento com erro
+        .then(resposta => {
+            //caso a requisicao retorne um statusCode 200
+            if(resposta.status !== 200) {
+                throw Error();
+            };
 
-        //caso ocorra algum erro, exibe no console do navegador
-        .catch( erro => console.log(erro) )
+            return resposta.json();
+        })
 
-        // atualiza a lista de prontuarios sem o usuarios precisar executar nada
-        .then(this.buscarProntuarios)
+        // atuaçoza p state prontuarios com os dados
+        .then(resposta => this.setState({ prontuario : resposta }))
 
-        // Faz a chamada para a função limparCampos
-        .then(this.limparCampos)
-    }
+        .catch((erro) => console.log(erro))
 
-    buscarProntuarios = () => {
+
         // renderização
-        console.log('Agora vamos renderizar prontuario')
+        //console.log('Agora vamos renderizar prontuario')
 
         // chamada para API utilizando fetch()      Lembrete : executar um dotnet run na program da API
 
         // o fetch por padrão faz o GET 
-        fetch('http://localhost:5000/api/Prontuarios')
+        //fetch('http://localhost:5000/api/Prontuarios')
 
         // trazendo a promisses: .then(), .catch()
         // as promisses se resolve numa resposta (response)
@@ -80,18 +158,18 @@ class Prontuarios extends Component{
         //.then(resposta => console.log(resposta.json()))
 
         //definindo que o tipo de dado do retorno será em json
-        .then(resposta  => resposta.json())
+        // .then(resposta  => resposta.json())
 
-        //um array com todos os dados vindos da API
-        //.then(data => console.log(data))
+        // //um array com todos os dados vindos da API
+        // //.then(data => console.log(data))
 
-        // atualiza o state com os dados obtidos
-        .then(data => this.setState( { prontuario : data } ))
+        // // atualiza o state com os dados obtidos
+        // .then(data => this.setState( { prontuario : data } ))
 
-        //caso dê algum erro será visualizado no console do navegador
-        .catch( (erro) => console.log(erro) )
+        // //caso dê algum erro será visualizado no console do navegador
+        // .catch( (erro) => console.log(erro) )
 
-    }
+    };
 
     
     //chama a funcao prontuarios assim que o componente é renderizado
@@ -151,6 +229,33 @@ class Prontuarios extends Component{
             )
         } )
     }
+
+    // Função responsavel por excluir prontuario
+    excluirProntuario = (prontuarios) => {
+        // exibir no console
+        console.log('O prontuario !' +  prontuarios.idProntuario + 'foi selecionado')
+
+        // faz a chamada para a API 
+        fetch('http://localhost:5000/api/Prontuarios/'  + prontuarios.idProntuario, {
+            method : 'DELETE'
+        })
+
+        .then(resposta => {
+            //caso a requisicao retorne um status code,
+            if (resposta.status === 204) {
+                console.log(
+                    //exibe no console do navegador a mensagem 'Prontuario x excluid! , onde x é o id 
+                    'Prontuario' + prontuarios.idProntuario + 'Excluido'
+                )
+            };
+        })
+
+        // caso ocorra algum erro
+        .catch(erro => console.log(erro))
+
+        // atualiza o prontuario
+        .then(this.buscarProntuarios)
+    }
     
     // função que vai resetar os states nomeProntuario e idProntuarioAlterado
     limparCampos = () => {
@@ -170,7 +275,7 @@ class Prontuarios extends Component{
                 <main>
                     <section>
                         {/*Prontuarios*/}
-                        <h2>Prontuario do Paciente</h2>
+                        <h2>Lista pacientes</h2>
                         <table>
                             <thead>
                                 <tr>
@@ -195,6 +300,9 @@ class Prontuarios extends Component{
 
                                                     {/* Faz a chamada para a função buscarProntuarioId passando o prontuario selecionado */}
                                                     <td><button onClick={() => this.buscarProntuarioId(prontuarios)}>Editar</button></td>
+
+                                                    {/* Faz a chamada da funçãp excluir */}
+                                                    <td><button onClick={() => this.excluirProntuario(prontuarios)}>excluir</button></td>
 
                                                 </tr>
                                             )
@@ -261,6 +369,16 @@ class Prontuarios extends Component{
                                 <button>Data de nascimento</button>
                             </div>
                         </form>
+                                
+                        {
+                            // Ao clickar em editar , irá aparecer na tela :
+
+                            this.state.idProntuarioAlterado  !== 0 &&
+                            <div>
+                                <p>O paciente{this.state.idProntuarioAlterado} está sendo editado</p>
+                                <p>Clique em cancelar caso queira cancelar a operação antes de cadastrar o paciente</p>
+                            </div>
+                        }
                     </section>
                 </main>
 

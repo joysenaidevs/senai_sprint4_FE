@@ -31,7 +31,7 @@ export default function Administrador() {
 
     // buscar todas consultas cadastradas
     function getConsultas() {
-        axios.get('http://localhost:5000/api/consultas', {
+        axios.get('http://localhost:5000/api/Consultas', {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('usuario-login')
             }
@@ -48,7 +48,7 @@ export default function Administrador() {
 
     // buscar médico
     function getMedicos() {
-        axios.get('http://localhost:5000/api/medicos', {
+        axios.get('http://localhost:5000/api/Medicos', {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('usuario-login')
             }
@@ -65,7 +65,7 @@ export default function Administrador() {
 
     // buscar paciente
     function getProntuarios() {
-        axios.get('http://localhost:5000/api/prontuarios', {
+        axios.get('http://localhost:5000/api/Prontuarios', {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('usuario-login')
             }
@@ -88,7 +88,7 @@ export default function Administrador() {
 
         setIsLoading(true)
 
-        axios.post('http://localhost:5000/api/consultas', {
+        axios.post('http://localhost:5000/api/Consultas', {
             idProntuario: idProntuario,
             idMedico: idMedico,
             dataConsulta: new Date(dataConsulta),
@@ -128,177 +128,177 @@ export default function Administrador() {
 
     return (
 
-    <div className="pg-adm">
+        <div className="pg-adm">
 
-        <header>
-            <h1 className="titulo"> Gerenciamento de Consultas <br />
-                <Link to='/login' className="material-icons">logout</Link>
-            </h1>
-        </header>
+            <header>
+                <h1 className="titulo"> Gerenciamento de Consultas <br />
+                    <Link to='/login' className="material-icons">Sair</Link>
+                </h1>
+            </header>
 
 
-        <div className="conteudo-adm">
+            <div className="conteudo-adm">
 
-            <section className="cadastro">
+                <section className="cadastro">
 
-                <h2 className="sub-titulo">Cadastro de Consultas </h2>
+                    <h2 className="sub-titulo">Cadastro de Consultas </h2>
 
-                <form id="cadastro-consulta" onSubmit={postConsultas}>
+                    <form id="cadastro-consulta" onSubmit={postConsultas}>
 
-                    <div className="campos">
+                        <div className="campos">
 
-                        <p>Paciente</p>
+                            <p>Paciente</p>
 
-                        <select
+                            <select
 
-                            name="idProntuario"
-                            value={idProntuario}
-                            onChange={(event) => setIdProntuario(event.target.value)}
-                        >
-                            <option value="0">Paciente</option>
+                                name="idProntuario"
+                                value={idProntuario}
+                                onChange={(event) => setIdProntuario(event.target.value)}
+                            >
+                                <option value="0">Paciente</option>
+
+                                {
+                                    listaProntuarios.map(prontuario => {
+                                        return (
+                                            <option key={prontuario.idProntuario} value={prontuario.idProntuario}>
+                                                {prontuario.nomeProntuario}
+                                            </option>
+                                        )
+                                    })
+                                }
+
+                            </select>
+
+                        </div>
+
+                        <div className="campos">
+
+                            <p>Médico</p>
+
+                            <select
+
+                                name="idMedico"
+                                value={idMedico}
+                                onChange={(event) => setIdMedico(event.target.value)}
+                            >
+                                <option value="0">Médico</option>
+
+                                {
+                                    listaMedicos.map(medico => {
+                                        return (
+                                            <option
+                                                key={medico.idMedico}
+                                                value={medico.idMedico}>
+                                                {medico.nomeMedico} - {medico.idEspecialidadeNavigation.nomeEspecialidade}
+                                            </option>
+                                        )
+                                    })
+                                }
+
+                            </select>
+
+                        </div>
+
+                        <div className="campos">
+
+                            <p>Data</p>
+
+                            <input
+
+                                type="date"
+                                name="dataConsulta"
+                                value={dataConsulta}
+                                onChange={(event) => setDataConsulta(event.target.value)}
+                                placeholder="Data Consulta"
+
+                            />
+
+                        </div>
+
+                        <div className="campos">
+
+                            <p>Status</p>
+
+                            <select
+                                name="situacao"
+                                value={situacao}
+                                onChange={(event) => setSituacao(event.target.value)}
+
+                            >
+                                <option value="1">Agendado</option>
+                                <option value="2">Cancelado</option>
+                                <option value="3">Realizado</option>
+
+                            </select>
+
+                        </div>
+
+                        <div id="btn-cadastrar">
+                            {
+                                isLoading === true &&
+                                <button id="btn-adm" type="submit" disabled>
+                                    Loading...
+                                </button>
+                            }
+
+
 
                             {
-                                listaProntuarios.map(prontuario => {
+                                isLoading === false &&
+                                <button id="btn-salvar-consultas" className="material-icons" type="submit">
+                                    check
+                                </button>
+                            }
+                        </div>
+
+
+
+
+                    </form>
+
+                </section>
+
+                
+
+                <section id="historico-consulta">
+
+                    <h2 className="sub-titulo">Histórico de Consultas </h2>
+
+                    <table id="table-adm">
+
+                        <thead>
+
+                            <tr>
+                                <th>Paciente</th>
+                                <th>Médico</th>
+                                <th>Especialidade</th>
+                                <th>Data</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+                            {
+                                listaConsultas.map((consulta) => {
                                     return (
-                                        <option key={prontuario.idProntuario} value={prontuario.idProntuario}>
-                                            {prontuario.nomeProntuario}
-                                        </option>
+                                        <tr key={consulta.idConsulta}>
+                                            <td>{consulta.idProntuario.nomeProntuario}</td>
+                                            <td>{consulta.idMedico}</td>
+                                            <td>{consulta.idMedico.idEspecialidade}</td>
+                                            <td>{new Date(consulta.dataConsulta).toLocaleDateString()}</td>
+                                            <td>{consulta.situacao}</td>
+                                            
+                                        </tr>
                                     )
                                 })
                             }
+                        </tbody>
 
-                        </select>
+                    </table>
 
-                    </div>
-
-                    <div className="campos">
-
-                        <p>Médico</p>
-
-                        <select
-
-                            name="idMedico"
-                            value={idMedico}
-                            onChange={(event) => setIdMedico(event.target.value)}
-                        >
-                            <option value="0">Médico</option>
-
-                            {
-                                listaMedicos.map(medico => {
-                                    return (
-                                        <option
-                                            key={medico.idMedico}
-                                            value={medico.idMedico}>
-                                            {medico.nomeMedico} - {medico.idEspecialidadeNavigation.nomeEspecialidade}
-                                        </option>
-                                    )
-                                })
-                            }
-
-                        </select>
-
-                    </div>
-
-                    <div className="campos">
-
-                        <p>Data</p>
-
-                        <input
-
-                            type="date"
-                            name="dataConsulta"
-                            value={dataConsulta}
-                            onChange={(event) => setDataConsulta(event.target.value)}
-                            placeholder="Data Consulta"
-
-                        />
-
-                    </div>
-
-                    <div className="campos">
-
-                        <p>Status</p>
-
-                        <select
-                            name="situacao"
-                            value={situacao}
-                            onChange={(event) => setSituacao(event.target.value)}
-
-                        >
-                            <option value="1">Agendado</option>
-                            <option value="2">Cancelado</option>
-                            <option value="3">Realizado</option>
-
-                        </select>
-
-                    </div>
-
-                    <div id="btn-cadastrar">
-                        {
-                            isLoading === true &&
-                            <button id="btn-adm" type="submit" disabled>
-                                Loading...
-                            </button>
-                        }
-
-
-
-                        {
-                            isLoading === false &&
-                            <button id="btn-salvar-consultas" className="material-icons" type="submit">
-                                check
-                            </button>
-                        }
-                    </div>
-
-
-
-
-                </form>
-
-            </section>
-
-            <hr />
-
-            <section id="historico-consulta">
-
-                <h2 className="sub-titulo">Histórico de Consultas </h2>
-
-                <table id="table-adm">
-
-                    <thead>
-
-                        <tr>
-                            <th>Paciente</th>
-                            <th>Médico</th>
-                            <th>Especialidade</th>
-                            <th>Data</th>
-                            <th>Status</th>
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-                        {
-                            listaConsultas.map((consulta) => {
-                                return (
-                                    <tr key={consulta.idConsulta}>
-                                        <td>{/*consulta.idProntuario.nomeProntuario*/}</td>
-                                        <td>{consulta.idMedicoNavigation.nomeMedico}</td>
-                                        <td>{consulta.idMedicoNavigation.idEspecialidadeNavigation.nomeEspecialidade}</td>
-                                        <td>{new Date(consulta.dataConsulta).toLocaleDateString()}</td>
-                                        <td>{consulta.idConsultaNavigation.idSituacaoNavigation.situacao}</td>
-                                        
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-
-                </table>
-
-            </section>
+                </section>
+            </div>
         </div>
-    </div>
-
-)}
+    )
+}
