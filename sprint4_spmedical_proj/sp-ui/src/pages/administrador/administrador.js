@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import '../../assets/css/style.css';
 
+
 export default function Administrador() {
 
 
@@ -128,12 +129,10 @@ export default function Administrador() {
 
     return (
 
-        <div className="pg-adm">
+        <div className="pg-adm container">
 
             <header>
-                <h1 className="titulo"> Gerenciamento de Consultas <br />
-                    <Link to='/login' className="material-icons">Sair</Link>
-                </h1>
+                <Link to='/login' className="material-icons-sair">Sair</Link>
             </header>
 
 

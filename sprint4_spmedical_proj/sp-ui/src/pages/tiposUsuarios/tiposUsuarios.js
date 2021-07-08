@@ -102,7 +102,7 @@ export default function TiposUsuarios(){
                                 type="text"
                                 value={nomeTipoUsuario}
                                 onChange={(event) => setNomeTipoUsuario(event.target.value)}
-                                placeholder="Título do Tipo de Usuários"
+                                placeholder="Nome do Tipo de Usuário"
                             />
 
                             {

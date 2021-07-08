@@ -34,11 +34,11 @@ const routing = (
       <Switch>
         <Route path="/login" component={Login} /> {/* Login */}
         <Route path="/prontuario" component={Prontuarios} />
-        <PermissaoAdm path="/Administrador" component={Administrador} /> {/* tela do administrador*/} 
+        <Route path="/Administrador" component={Administrador} /> {/* tela do administrador*/} 
+        <Route path="/medico" component={Medico} /> {/* tela de medicos */} 
         {/* <PermissaoAdm path="/tiposUsuarios" component={TipoUsuario} /> {/* tela do administrador*/}  
-        <Route path="/tiposUsuarios" component={TipoUsuario} />
+        <PermissaoAdm path="/tiposUsuarios" component={TipoUsuario} />
 
-        <Route exact path="/" component={Medico} /> {/* tela de medicos */} 
         <Route exact path="/notFound" component={NotFound}/> {/* notFound*/}
         <Redirect to = "/notFound"/>
       </Switch>

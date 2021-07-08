@@ -28,7 +28,7 @@ class Login extends Component {
         this.setState({ erroMensagem: '', isLoading: true });
 
         // Define a URL e o corpo da requisição
-        axios.post('http://localhost:5000/api/login', {
+        axios.post('http://localhost:5000/api/Login', {
             email: this.state.email,
             senha: this.state.senha
         })
@@ -62,9 +62,7 @@ class Login extends Component {
                     console.log(parseJwt());
 
 
-                    
-
-                    //verifica se o tipo de usuario logado é Administrador
+                    // verifica se o tipo de usuario logado é Administrador
                     // se for, redireciona para a página de Consultas e listas
                     // if(parseJwt().role === '1'){
                     //     this.props.history.push('/administrador');
