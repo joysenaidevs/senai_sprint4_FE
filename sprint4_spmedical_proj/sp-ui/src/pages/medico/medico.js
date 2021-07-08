@@ -49,7 +49,7 @@ export default class Medico extends Component{
 
 
     componentDidMount(){
-
+        this.buscarConsultas();
     };
 
     render(){

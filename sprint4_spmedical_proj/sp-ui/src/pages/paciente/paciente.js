@@ -130,13 +130,15 @@ class Prontuarios extends Component{
         .then(resposta => {
             //caso a requisicao retorne um statusCode 200
             if(resposta.status !== 200) {
-                throw Error();
+               this.setState({ prontuario : resposta.data })
+
+               console.log(this.state.prontuario)
             };
 
             return resposta.json();
         })
 
-        // atuaçoza p state prontuarios com os dados
+        // atualiza o state prontuarios com os dados
         .then(resposta => this.setState({ prontuario : resposta }))
 
         .catch((erro) => console.log(erro))
