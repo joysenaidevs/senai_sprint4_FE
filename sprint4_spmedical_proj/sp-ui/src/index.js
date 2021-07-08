@@ -6,22 +6,39 @@ import './index.css';
 
 import Medico from './pages/medico/medico';
 import Administrador from './pages/administrador/administrador'
+import TipoUsuario from './pages/tiposUsuarios/tiposUsuarios'
 import Login from './pages/login/login';
 import NotFound from './pages/notFound/notFound';
 import Prontuarios from './pages/paciente/paciente';
 
 
 import reportWebVitals from './reportWebVitals';
+import { parseJwt, usuarioAutenticado } from './services/auth';
+
+// logica de permissao para o acesso de paginas ex: usuario 1, 2 ou 3
+const PermissaoAdm = ({component : Component}) => (
+  <Route
+    render = {props =>
+      //caso esteja logado e o tipo dele seja administrador
+      usuarioAutenticado() && parseJwt().role === "1" ?
+      <Component {...props}/> :
+      // caso nao seja um adm, redireciona para a pagina login
+      <Redirect to = 'login'/>
+    }
+  />
+)
 
 const routing = (  
   <Router>
     <div>
       <Switch>
-        <Route path="/prontuario" component={Prontuarios} />
-        <Route path="/Administrador" component={Administrador} />
-        <Route exact path="/" component={Medico} /> {/* tela - Login */} 
         <Route path="/login" component={Login} /> {/* Login */}
-        {/* <Router path="/medico" component={Medico} /> {/* tela - medico/} */}
+        <Route path="/prontuario" component={Prontuarios} />
+        <PermissaoAdm path="/Administrador" component={Administrador} /> {/* tela do administrador*/} 
+        {/* <PermissaoAdm path="/tiposUsuarios" component={TipoUsuario} /> {/* tela do administrador*/}  
+        <Route path="/tiposUsuarios" component={TipoUsuario} />
+
+        <Route exact path="/" component={Medico} /> {/* tela de medicos */} 
         <Route exact path="/notFound" component={NotFound}/> {/* notFound*/}
         <Redirect to = "/notFound"/>
       </Switch>

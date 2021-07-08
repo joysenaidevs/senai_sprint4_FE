@@ -14,7 +14,7 @@ export default function Administrador() {
 
     const [dataConsulta, setDataConsulta] = useState(new Date())
 
-    const [situacao, setSituacao] = useState(0)
+    const [situacao, setIdSituacao] = useState(0)
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -220,9 +220,9 @@ export default function Administrador() {
                             <p>Status</p>
 
                             <select
-                                name="situacao"
+                                name="idSituacao"
                                 value={situacao}
-                                onChange={(event) => setSituacao(event.target.value)}
+                                onChange={(event) => setIdSituacao(event.target.value)}
 
                             >
                                 <option value="1">Agendado</option>
@@ -237,7 +237,7 @@ export default function Administrador() {
                             {
                                 isLoading === true &&
                                 <button id="btn-adm" type="submit" disabled>
-                                    Loading...
+                                    Cadastrando...
                                 </button>
                             }
 
@@ -246,7 +246,7 @@ export default function Administrador() {
                             {
                                 isLoading === false &&
                                 <button id="btn-salvar-consultas" className="material-icons" type="submit">
-                                    check
+                                    Salvar Consulta
                                 </button>
                             }
                         </div>
@@ -262,7 +262,7 @@ export default function Administrador() {
 
                 <section id="historico-consulta">
 
-                    <h2 className="sub-titulo">Histórico de Consultas </h2>
+                    <h2 className="sub-titulo">Listar Consultas </h2>
 
                     <table id="table-adm">
 
@@ -283,12 +283,11 @@ export default function Administrador() {
                                 listaConsultas.map((consulta) => {
                                     return (
                                         <tr key={consulta.idConsulta}>
-                                            <td>{consulta.idProntuario.nomeProntuario}</td>
-                                            <td>{consulta.idMedico}</td>
-                                            <td>{consulta.idMedico.idEspecialidade}</td>
+                                            <td>{consulta.idProntuarioNavigation.nomeProntuario}</td>
+                                            <td>{consulta.idMedicoNavigation.nomeMedico}</td>
+                                            <td>{consulta.idMedicoNavigation.idEspecialidadeNavigation.nomeEspecialidade}</td>
                                             <td>{new Date(consulta.dataConsulta).toLocaleDateString()}</td>
-                                            <td>{consulta.situacao}</td>
-                                            
+                                            <td>{consulta.idSituacaoNavigation.situacao}</td>
                                         </tr>
                                     )
                                 })

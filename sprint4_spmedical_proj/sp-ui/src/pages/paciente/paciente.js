@@ -8,7 +8,7 @@ class Prontuarios extends Component{
             // nomeEstada : valor
             prontuario : [],
             nomeProntuario : '',
-            dataNascimento : '',
+            dataNascimento : new Date(),
             telefone : '',
             rg : '',
             cpf : '',
